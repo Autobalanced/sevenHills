@@ -1,0 +1,61 @@
+<ion-view view-title="Selection">
+    <ion-content>
+        <div class="list card">
+            <div class="item item-avatar">
+                <img ng-src="{{currentImage.currentGenre.imageUrl}}">
+                <h2>{{currentImage.currentGenre.title}}</h2>
+                <p>{{currentImage.currentGenre.score}}</p>
+            </div>
+            <div class="item item-image">
+                <a href="/image/{{currentImage.id}}">
+                    <img ng-src="{{currentImage.url}}">
+                </a>
+            </div>
+            <a class="item item-icon-left assertive" href="#">
+                <i class="icon ion-star"></i> {{currentImage.topCaption}}
+            </a>
+            <div class="item range range-positive">
+                <i class="icon ion-ios-sunny-outline"></i>
+                <input type="range" name="volume" min="0" max="100" value="33">
+                <i class="icon ion-ios-sunny"></i>
+            </div>
+            <div class="row">
+                <div class="col-33">
+                    <button class="button">
+                        <i class="icon icon-left ion-star"></i>FirstGenre
+                    </button>
+                </div>
+                <div class="col-33">
+                    <button class="button">
+                        <i class="icon icon-left ion-star"></i>FirstGenre
+                    </button>
+                </div>
+                <div class="col-33">
+                    <button class="button">
+                        <i class="icon icon-left ion-star"></i>FirstGenre
+                    </button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-33">
+                    <button class="button">
+                        <i class="icon icon-left ion-star"></i>FirstGenre
+                    </button>
+                </div>
+                <div class="col-33">
+                    <button class="button">
+                        <i class="icon icon-left ion-star"></i>FirstGenre
+                    </button>
+                </div>
+                <div class="col-33">
+                    <button class="button">
+                        <i class="icon icon-left ion-star"></i>FirstGenre
+                    </button>
+                </div>
+            </div>
+            <a class="item item-icon-left assertive" href="#" ng-repeat="caption in currentImage.captions">
+            	{{caption.text}}
+            </a>
+        </div>
+    </ion-content>
+</ion-view>
