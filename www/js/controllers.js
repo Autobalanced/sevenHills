@@ -48,6 +48,30 @@ angular.module('sevenHills.controllers', [])
 
     $scope.currentImage = {};
 
+    // Clean uneccessary keys from database
+    for (var i = imageList.length - 1; i >= 0; i--) {
+        if ("LastModified" in imageList[i]) {
+            delete imageList[i].LastModified;
+        }
+        if ("Size" in imageList[i]) {
+            delete imageList[i].Size;
+        }
+        if ("StorageClass" in imageList[i]) {
+            delete imageList[i].StorageClass;
+        }
+        if ("0" in imageList[i]) {
+            delete imageList[i];
+        }
+        if (!imageList[i].captions) {
+          imageList[i].captions = [{
+            id: 1,
+            text: 'No captions for this image yet',
+            score: -1
+          }];
+        }
+        imageList.$save(imageList[i]);
+    }
+
     // Get image list from router
     $scope.imageList = imageList;
 
