@@ -41,42 +41,17 @@ angular.module('sevenHills.controllers', [])
     };
 })
 
-.controller('SelectionCtrl', function($scope, FireFactory, imageList) {
-    /*FireFactory.$loaded().then(function() {
-        $scope.fireImages = FireFactory;
-        console.log(FireFactory);
-    });*/
-    /*$scope.imageList = [{
-        title: 'testImage1',
-        id: 1,
-        url: './img/testingImages/image1.jpg',
-        currentGenre: {
-          title: 'hunger',
-          score: 2,
-          imageUrl: ''
-        },
-        topCaption: 'Finger up!',
-        captions: [{
-          score: 4,
-          text: 'testCaption1'
-        }]
-    }, {
-        title: 'testImage2',
-        id: 2,
-        url: './img/testingImages/image2.jpg'
-    }, {
-        title: 'testImage3',
-        id: 3,
-        url: './img/testingImages/image3.jpg'
-    }, {
-        title: 'testImage4',
-        id: 4,
-        url: './img/testingImages/image4.jpg'
-    }];*/
+.controller('SelectionCtrl', function($scope, imageList) {
 
+    // Parent folder URL for all aws images
+    var amazonUrl = 'https://s3-ap-southeast-2.amazonaws.com/sevenhillsimages/';
+
+    $scope.currentImage = {};
+
+    // Get image list from router
     $scope.imageList = imageList;
 
-    $scope.currentImage = $scope.imageList[1];
+    $scope.currentImage.url = amazonUrl + $scope.imageList[1].Key;
     console.log($scope.currentImage);
 })
 
