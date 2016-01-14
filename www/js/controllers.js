@@ -1,4 +1,4 @@
-angular.module('starter.controllers', [])
+angular.module('sevenHills.controllers', [])
 
 .controller('AppCtrl', function($scope, $ionicModal, $timeout) {
 
@@ -41,8 +41,12 @@ angular.module('starter.controllers', [])
     };
 })
 
-.controller('SelectionCtrl', function($scope) {
-    $scope.imageList = [{
+.controller('SelectionCtrl', function($scope, FireFactory, imageList) {
+    /*FireFactory.$loaded().then(function() {
+        $scope.fireImages = FireFactory;
+        console.log(FireFactory);
+    });*/
+    /*$scope.imageList = [{
         title: 'testImage1',
         id: 1,
         url: './img/testingImages/image1.jpg',
@@ -68,9 +72,11 @@ angular.module('starter.controllers', [])
         title: 'testImage4',
         id: 4,
         url: './img/testingImages/image4.jpg'
-    }];
+    }];*/
 
-    $scope.currentImage = $scope.imageList[0];
+    $scope.imageList = imageList;
+
+    $scope.currentImage = $scope.imageList[1];
     console.log($scope.currentImage);
 })
 

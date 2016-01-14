@@ -1,10 +1,11 @@
-// Ionic Starter App
+// Ionic sevenHills App
 
-// angular.module is a global place for creating, registering and retrieving Angular modules
-// 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
-// the 2nd parameter is an array of 'requires'
-// 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers'])
+/* An app created solely for comedic affect for a friends 30th Birthday. 
+The intent was to create a Tinder clone that serves nothing but images of my friend,
+with each photo assigned to 6 category hills and the highest ranking image attaining
+the highest rank and the Hill of Man (surname of subject: Hillman). */
+
+angular.module('sevenHills', ['ionic', 'firebase', 'sevenHills.controllers', 'sevenHills.factories'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -56,6 +57,14 @@ angular.module('starter', ['ionic', 'starter.controllers'])
           templateUrl: 'templates/selection.html',
           controller: 'SelectionCtrl'
         }
+      },
+      resolve: {
+        // Force state change to wait for loaded response from Firebase.
+        imageList: ['FireFactory', function(FireFactory) {
+          return FireFactory.$loaded().then(function() {
+            return FireFactory;
+          });
+        }]
       }
     })
 
