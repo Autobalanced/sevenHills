@@ -3,17 +3,14 @@
         <div class="list card">
             <div class="item item-avatar">
                 <img ng-src="{{currentImage.currentGenre.imageUrl}}">
-                <h2>{{currentImage.currentGenre.title}}</h2>
-                <p>{{currentImage.currentGenre.score}}</p>
+                <h2>Title: {{currentImage.currentGenre.title || "No current title"}}</h2>
+                <p>Genre: {{currentImage.currentGenre.score || "No current score"}}</p>
             </div>
             <div class="item item-image">
                 <a href="/image/{{currentImage.id}}">
                     <img ng-src="{{currentImage.url}}">
                 </a>
             </div>
-            <a class="item item-icon-left assertive" href="#">
-                <i class="icon ion-star"></i> {{currentImage.topCaption}}
-            </a>
             <div class="item range range-positive">
                 <i class="icon ion-ios-star-outline"></i>
                 <input type="range" name="volume" min="1" max="5" value="1">
