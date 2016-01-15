@@ -5,7 +5,7 @@ The intent was to create a Tinder clone that serves nothing but images of my fri
 with each photo assigned to 6 category hills and the highest ranking image attaining
 the highest rank and the Hill of Man (surname of subject: Hillman). */
 
-angular.module('sevenHills', ['ionic', 'firebase', 'sevenHills.controllers', 'sevenHills.factories'])
+angular.module('sevenHills', ['ionic', 'firebase', 'sevenHills.controllers', 'sevenHills.factories', 'sevenHills.services'])
 
 .run(function($ionicPlatform) {
     $ionicPlatform.ready(function() {
@@ -79,6 +79,11 @@ angular.module('sevenHills', ['ionic', 'firebase', 'sevenHills.controllers', 'se
     });
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise('/app/selection');
+})
+
+.constant('externals', {
+    firebaseUrl: 'https://sevenhills.firebaseio.com/',
+    awsUrl: 'https://s3-ap-southeast-2.amazonaws.com/sevenhillsimages/'
 })
 
 .constant('genreList', {

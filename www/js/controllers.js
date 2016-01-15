@@ -41,7 +41,7 @@ angular.module('sevenHills.controllers', [])
     };
 })
 
-.controller('SelectionCtrl', function($scope, imageList, genreList) {
+.controller('SelectionCtrl', function($scope, imageList, genreList, ImageService) {
 
     // Parent folder URL for all aws images
     var amazonUrl = 'https://s3-ap-southeast-2.amazonaws.com/sevenhillsimages/';
@@ -71,6 +71,28 @@ angular.module('sevenHills.controllers', [])
                 score: -1
             }];
         }
+        if (!imageList[i].rating) {
+            imageList[i].rating = 1;
+        }
+        if (!imageList[i].ratings) {
+            imageList[i].ratings = {
+                ones: 0,
+                twos: 0,
+                threes: 0,
+                fours: 0,
+                fives: 0
+            };
+        }
+        if (!imageList[i].genreScores) {
+            imageList[i].genreScores = {
+                happy: 0,
+                hungry: 0,
+                excited: 0,
+                tired: 0,
+                aroused: 0,
+                confused: 0
+            };
+        }
         imageList.$save(imageList[i]);
     }*/
 
@@ -78,6 +100,7 @@ angular.module('sevenHills.controllers', [])
 
     // Function declarations
     $scope.checkImages = checkImages;
+    $scope.updateImageScore = updateImageScore;
 
     /* Current image serves as the image currently shown in the view, cuts down on memory usage 
     if data is simply swapped out of one view rather than loading multiple views and switching between them. */
@@ -89,18 +112,23 @@ angular.module('sevenHills.controllers', [])
         url: "https://s3-ap-southeast-2.amazonaws.com/sevenhillsimages/12272930_10156285097860319_610470421_n.jpg"
     }];
 
+    // Simple stage toggle for ng-show directives for rating an image, voting on a genre or leaving a caption.
+    $scope.stage = "rating";
+
     // Get image list from Firebase load on router
     $scope.imageList = imageList;
 
     // Get list of genre's stored in app constant file
     $scope.genreList = genreList;
-    console.log(genreList);
 
     // Get list of non-viewed images using function to trim and maintain array of viewed images.
     $scope.newImages = $scope.checkImages();
 
     // Set a random image from non-viewed images to serve to the user.
     $scope.currentImage = $scope.newImages[Math.floor(Math.random()*$scope.newImages.length)];
+    console.log($scope.currentImage);
+
+    ImageService.updateImage($scope.currentImage.$id);
 
     // Remove viewed images from view array
     function checkImages() {
@@ -113,6 +141,10 @@ angular.module('sevenHills.controllers', [])
             }
         }
         return imageArray;
+    }
+
+    function updateImageScore() {
+        ImageService.updateScore($scope.currentImage.$id, $scope.currentImage.rating);
     }
 })
 

@@ -11,24 +11,71 @@
                     <img ng-src="{{currentImage.url}}">
                 </a>
             </div>
-            <div class="item range range-positive">
-                <i class="icon ion-ios-star-outline"></i>
-                <input type="range" name="volume" min="1" max="5" value="1">
-                <i class="icon ion-ios-star"></i>
-            </div>
-            <div class="row">
-                <div class="button-bar">
-                    <a class="button button-assertive" ng-repeat="genre in genreList.genres" ng-if="$index % 2 == 0"><i class="icon icon-left" ng-class="genre.icon"></i>{{genre.text}}</a>
+            <div ng-show="stage === 'rating'">
+                <div class="row">
+                    <div class="col">
+                        <div class="card">
+                            <div class="item item-text-wrap">How much does this image represent Ben?</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="item range range-assertive">
+                            <i class="icon ion-ios-star-outline"></i>
+                            <input type="range" name="volume" min="1" max="5" ng-model="currentImage.rating">
+                            <i class="icon ion-ios-star"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="button button-block button-assertive" ng-click="updateImageScore(); stage = 'genre'">
+                            Next
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="button-bar">
-                    <a class="button button-assertive" ng-repeat="genre in genreList.genres" ng-if="$index % 2 != 0"><i class="icon icon-left" ng-class="genre.icon"></i>{{genre.text}}</a>
+            <div ng-show="stage === 'genre'">
+                <div class="row">
+                    <div class="col">
+                        <div class="card">
+                            <div class="item item-text-wrap">And how does it make you feel?</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="button-bar">
+                        <a class="button button-assertive" ng-repeat="genre in genreList.genres" ng-if="$index % 2 == 0"><i class="icon icon-left" ng-class="genre.icon"></i>{{genre.text}}</a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="button-bar">
+                        <a class="button button-assertive" ng-repeat="genre in genreList.genres" ng-if="$index % 2 != 0"><i class="icon icon-left" ng-class="genre.icon"></i>{{genre.text}}</a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="button button-block button-assertive" ng-click="stage = 'captions'">
+                            Next
+                        </div>
+                    </div>
                 </div>
             </div>
-            <a class="item item-icon-left assertive" href="#" ng-repeat="caption in currentImage.captions">
-            	{{caption.text}}
-            </a>
+            <div ng-show="stage === 'captions'">
+                <div class="row">
+                    <div class="col">
+                        <div class="button button-block button-assertive">
+                            More images!
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <a class="item item-icon-left assertive" href="#" ng-repeat="caption in currentImage.captions">{{caption.text}}</a>
+                    </div>
+                </div>
+            </div>
         </div>
     </ion-content>
 </ion-view>
