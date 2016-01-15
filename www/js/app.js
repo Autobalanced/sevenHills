@@ -8,75 +8,98 @@ the highest rank and the Hill of Man (surname of subject: Hillman). */
 angular.module('sevenHills', ['ionic', 'firebase', 'sevenHills.controllers', 'sevenHills.factories'])
 
 .run(function($ionicPlatform) {
-  $ionicPlatform.ready(function() {
-    // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-    // for form inputs)
-    if (window.cordova && window.cordova.plugins.Keyboard) {
-      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-      cordova.plugins.Keyboard.disableScroll(true);
+    $ionicPlatform.ready(function() {
+        // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
+        // for form inputs)
+        if (window.cordova && window.cordova.plugins.Keyboard) {
+            cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+            cordova.plugins.Keyboard.disableScroll(true);
 
-    }
-    if (window.StatusBar) {
-      // org.apache.cordova.statusbar required
-      StatusBar.styleDefault();
-    }
-  });
+        }
+        if (window.StatusBar) {
+            // org.apache.cordova.statusbar required
+            StatusBar.styleDefault();
+        }
+    });
 })
 
 .config(function($stateProvider, $urlRouterProvider) {
-  $stateProvider
+    $stateProvider
 
-    .state('app', {
-    url: '/app',
-    abstract: true,
-    templateUrl: 'templates/menu.html',
-    controller: 'AppCtrl'
-  })
-
-  .state('app.search', {
-    url: '/search',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/search.html'
-      }
-    }
-  })
-
-  .state('app.browse', {
-      url: '/browse',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/browse.html'
-        }
-      }
-    })
-    .state('app.selection', {
-      url: '/selection',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/selection.html',
-          controller: 'SelectionCtrl'
-        }
-      },
-      resolve: {
-        // Force state change to wait for loaded response from Firebase.
-        imageList: ['FireFactory', function(FireFactory) {
-          return FireFactory.$loaded().then(function() {
-            return FireFactory;
-          });
-        }]
-      }
+        .state('app', {
+        url: '/app',
+        abstract: true,
+        templateUrl: 'templates/menu.html',
+        controller: 'AppCtrl'
     })
 
-  .state('app.single', {
-    url: '/image/:imageId',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/imagePage.html',
-        controller: 'ImagePageCtrl'
-      }
-    }
-  });
-  // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/selection');
+    .state('app.search', {
+        url: '/search',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/search.html'
+            }
+        }
+    })
+
+    .state('app.browse', {
+            url: '/browse',
+            views: {
+                'menuContent': {
+                    templateUrl: 'templates/browse.html'
+                }
+            }
+        })
+        .state('app.selection', {
+            url: '/selection',
+            views: {
+                'menuContent': {
+                    templateUrl: 'templates/selection.html',
+                    controller: 'SelectionCtrl'
+                }
+            },
+            resolve: {
+                // Force state change to wait for loaded response from Firebase.
+                imageList: ['FireFactory', function(FireFactory) {
+                    return FireFactory.$loaded().then(function() {
+                        return FireFactory;
+                    });
+                }]
+            }
+        })
+
+    .state('app.single', {
+        url: '/image/:imageId',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/imagePage.html',
+                controller: 'ImagePageCtrl'
+            }
+        }
+    });
+    // if none of the above states are matched, use this as the fallback
+    $urlRouterProvider.otherwise('/app/selection');
+})
+
+.constant('genreList', {
+    genres: [{
+        text: 'Happy',
+        icon: 'ion-happy-outline',
+        colour: 'button-assertive'
+    },{
+        text: 'Hungry',
+        icon: 'ion-pizza'
+    }, {
+        text: 'Excited',
+        icon: 'ion-ios-pulse'
+    }, {
+        text: 'Tired',
+        icon: 'ion-ios-cloudy-night-outline'
+    }, {
+        text: 'Aroused',
+        icon: 'ion-android-contacts'
+    }, {
+        text: 'Confused',
+        icon: 'ion-transgender'
+    }]
 });

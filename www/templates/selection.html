@@ -15,42 +15,18 @@
                 <i class="icon ion-star"></i> {{currentImage.topCaption}}
             </a>
             <div class="item range range-positive">
-                <i class="icon ion-ios-sunny-outline"></i>
-                <input type="range" name="volume" min="0" max="100" value="33">
-                <i class="icon ion-ios-sunny"></i>
+                <i class="icon ion-ios-star-outline"></i>
+                <input type="range" name="volume" min="1" max="5" value="1">
+                <i class="icon ion-ios-star"></i>
             </div>
             <div class="row">
-                <div class="col-33">
-                    <button class="button">
-                        <i class="icon icon-left ion-star"></i>FirstGenre
-                    </button>
-                </div>
-                <div class="col-33">
-                    <button class="button">
-                        <i class="icon icon-left ion-star"></i>FirstGenre
-                    </button>
-                </div>
-                <div class="col-33">
-                    <button class="button">
-                        <i class="icon icon-left ion-star"></i>FirstGenre
-                    </button>
+                <div class="button-bar">
+                    <a class="button button-assertive" ng-repeat="genre in genreList.genres" ng-if="$index % 2 == 0"><i class="icon icon-left" ng-class="genre.icon"></i>{{genre.text}}</a>
                 </div>
             </div>
             <div class="row">
-                <div class="col-33">
-                    <button class="button">
-                        <i class="icon icon-left ion-star"></i>FirstGenre
-                    </button>
-                </div>
-                <div class="col-33">
-                    <button class="button">
-                        <i class="icon icon-left ion-star"></i>FirstGenre
-                    </button>
-                </div>
-                <div class="col-33">
-                    <button class="button">
-                        <i class="icon icon-left ion-star"></i>FirstGenre
-                    </button>
+                <div class="button-bar">
+                    <a class="button button-assertive" ng-repeat="genre in genreList.genres" ng-if="$index % 2 != 0"><i class="icon icon-left" ng-class="genre.icon"></i>{{genre.text}}</a>
                 </div>
             </div>
             <a class="item item-icon-left assertive" href="#" ng-repeat="caption in currentImage.captions">

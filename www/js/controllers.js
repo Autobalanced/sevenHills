@@ -41,15 +41,13 @@ angular.module('sevenHills.controllers', [])
     };
 })
 
-.controller('SelectionCtrl', function($scope, imageList) {
+.controller('SelectionCtrl', function($scope, imageList, genreList) {
 
     // Parent folder URL for all aws images
     var amazonUrl = 'https://s3-ap-southeast-2.amazonaws.com/sevenhillsimages/';
 
-    $scope.currentImage = {};
-
-    // Clean uneccessary keys from database
-    for (var i = imageList.length - 1; i >= 0; i--) {
+    // Clean uneccessary keys from database (Move to service, only use when importing fresh data.)
+    /*for (var i = imageList.length - 1; i >= 0; i--) {
         if ("LastModified" in imageList[i]) {
             delete imageList[i].LastModified;
         }
@@ -59,24 +57,63 @@ angular.module('sevenHills.controllers', [])
         if ("StorageClass" in imageList[i]) {
             delete imageList[i].StorageClass;
         }
-        if ("0" in imageList[i]) {
-            delete imageList[i];
+        if ("ETag" in imageList[i]) {
+            delete imageList[i].ETag;
+        }
+        if ("Key" in imageList[i]) {
+            imageList[i].url = amazonUrl + imageList[i].Key;
+            delete imageList[i].Key;
         }
         if (!imageList[i].captions) {
-          imageList[i].captions = [{
-            id: 1,
-            text: 'No captions for this image yet',
-            score: -1
-          }];
+            imageList[i].captions = [{
+                id: 1,
+                text: 'No captions for this image yet',
+                score: -1
+            }];
         }
         imageList.$save(imageList[i]);
-    }
+    }*/
 
-    // Get image list from router
+    // Initialisations
+
+    // Function declarations
+    $scope.checkImages = checkImages;
+
+    /* Current image serves as the image currently shown in the view, cuts down on memory usage 
+    if data is simply swapped out of one view rather than loading multiple views and switching between them. */
+    $scope.currentImage = {};
+
+    /* An array of images already viewed this session so user only sees new images, 
+    should be stored in Firebase under user accounts later to persist or use local storage*/
+    $scope.viewedImages = [{
+        url: "https://s3-ap-southeast-2.amazonaws.com/sevenhillsimages/12272930_10156285097860319_610470421_n.jpg"
+    }];
+
+    // Get image list from Firebase load on router
     $scope.imageList = imageList;
 
-    $scope.currentImage.url = amazonUrl + $scope.imageList[1].Key;
-    console.log($scope.currentImage);
+    // Get list of genre's stored in app constant file
+    $scope.genreList = genreList;
+    console.log(genreList);
+
+    // Get list of non-viewed images using function to trim and maintain array of viewed images.
+    $scope.newImages = $scope.checkImages();
+
+    // Set a random image from non-viewed images to serve to the user.
+    $scope.currentImage = $scope.newImages[Math.floor(Math.random()*$scope.newImages.length)];
+
+    // Remove viewed images from view array
+    function checkImages() {
+        var imageArray = angular.copy(imageList);
+        for (var i = imageList.length - 1; i >= 0; i--) {
+            for (var j = $scope.viewedImages.length - 1; j >= 0; j--) {
+                if (imageList[i].url === $scope.viewedImages[j].url) {
+                    imageArray.splice(imageList[i],1);
+                }
+            }
+        }
+        return imageArray;
+    }
 })
 
 .controller('ImageCtrl', function($scope, $stateParams) {});
