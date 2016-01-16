@@ -33,20 +33,26 @@ angular.module('sevenHills.services', [])
         // Update the score of a particular image
         updateScore: function(imgId, newScore) {
             var scoreRating = '';
+            // Both string and int case required as Firebase returns string and input returns int
             switch (newScore) {
-                case '1':
+                case 1:
+                case "1":
                     scoreRating = 'ones';
                     break;
-                case '2':
+                case 2:
+                case "2":
                     scoreRating = 'twos';
                     break;
-                case '3':
+                case 3:
+                case "3":
                     scoreRating = 'threes';
                     break;
-                case '4':
+                case 4:
+                case "4":
                     scoreRating = 'fours';
                     break;
-                case '5':
+                case 5:
+                case "5":
                     scoreRating = 'fives';
                     break;
             }
@@ -58,6 +64,16 @@ angular.module('sevenHills.services', [])
             localImage.ratings[scoreRating]++;
 
             // Save changes
+            FireFactory.$save(localImage);
+        },
+        updateGenre: function(imgId, newGenre) {
+            // Get Image record from database
+            var localImage = FireFactory.$getRecord(imgId);
+
+            // Increment genre score count
+            localImage.genreScores[newGenre.toLowerCase()]++;
+
+            // Save updates back to database
             FireFactory.$save(localImage);
         }
     };

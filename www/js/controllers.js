@@ -101,16 +101,18 @@ angular.module('sevenHills.controllers', [])
     // Function declarations
     $scope.checkImages = checkImages;
     $scope.updateImageScore = updateImageScore;
+    $scope.updateImageGenre = updateImageGenre;
+    $scope.newImage = newImage;
 
     /* Current image serves as the image currently shown in the view, cuts down on memory usage 
     if data is simply swapped out of one view rather than loading multiple views and switching between them. */
     $scope.currentImage = {};
+    $scope.tempScore = 1;
+    $scope.tempGenre = '';
 
     /* An array of images already viewed this session so user only sees new images, 
     should be stored in Firebase under user accounts later to persist or use local storage*/
-    $scope.viewedImages = [{
-        url: "https://s3-ap-southeast-2.amazonaws.com/sevenhillsimages/12272930_10156285097860319_610470421_n.jpg"
-    }];
+    $scope.viewedImages = [];
 
     // Simple stage toggle for ng-show directives for rating an image, voting on a genre or leaving a caption.
     $scope.stage = "rating";
@@ -125,9 +127,10 @@ angular.module('sevenHills.controllers', [])
     $scope.newImages = $scope.checkImages();
 
     // Set a random image from non-viewed images to serve to the user.
-    $scope.currentImage = $scope.newImages[Math.floor(Math.random()*$scope.newImages.length)];
+    $scope.currentImage = $scope.newImages[Math.floor(Math.random() * $scope.newImages.length)];
     console.log($scope.currentImage);
 
+    // Run Service script to make up for a missing backend
     ImageService.updateImage($scope.currentImage.$id);
 
     // Remove viewed images from view array
@@ -136,15 +139,39 @@ angular.module('sevenHills.controllers', [])
         for (var i = imageList.length - 1; i >= 0; i--) {
             for (var j = $scope.viewedImages.length - 1; j >= 0; j--) {
                 if (imageList[i].url === $scope.viewedImages[j].url) {
-                    imageArray.splice(imageList[i],1);
+                    imageArray.splice(imageList[i], 1);
                 }
             }
         }
         return imageArray;
     }
 
-    function updateImageScore() {
-        ImageService.updateScore($scope.currentImage.$id, $scope.currentImage.rating);
+    // Send the users image score to the Service to be saved
+    function updateImageScore(tempScore) {
+        ImageService.updateScore($scope.currentImage.$id, tempScore);
+        $scope.stage = "genre";
+    }
+
+    // Send the users chosen genre to the Service to be saved
+    function updateImageGenre(tempGenre) {
+        ImageService.updateGenre($scope.currentImage.$id, tempGenre);
+        $scope.stage = "captions";
+    }
+
+    // Serve the user a new image
+    function newImage(imgUrl) {
+        $scope.viewedImages.push({
+            url: imgUrl
+        });
+        $scope.newImages = $scope.checkImages();
+        $scope.currentImage = $scope.newImages[Math.floor(Math.random() * $scope.newImages.length)];
+        console.log($scope.currentImage);
+
+        $scope.stage = "rating";
+        $scope.tempScore = 1;
+        $scope.tempGenre = '';
+
+        ImageService.updateImage($scope.currentImage.$id);
     }
 })
 

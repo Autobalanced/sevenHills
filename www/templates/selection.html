@@ -23,14 +23,14 @@
                     <div class="col">
                         <div class="item range range-assertive">
                             <i class="icon ion-ios-star-outline"></i>
-                            <input type="range" name="volume" min="1" max="5" ng-model="currentImage.rating">
+                            <input type="range" name="volume" min="1" max="5" value="1" ng-model="tempScore">
                             <i class="icon ion-ios-star"></i>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col">
-                        <div class="button button-block button-assertive" ng-click="updateImageScore(); stage = 'genre'">
+                        <div class="button button-block button-assertive" ng-click="updateImageScore(tempScore)">
                             Next
                         </div>
                     </div>
@@ -46,26 +46,19 @@
                 </div>
                 <div class="row">
                     <div class="button-bar">
-                        <a class="button button-assertive" ng-repeat="genre in genreList.genres" ng-if="$index % 2 == 0"><i class="icon icon-left" ng-class="genre.icon"></i>{{genre.text}}</a>
+                        <a class="button button-assertive" ng-repeat="genre in genreList.genres" ng-if="$index % 2 == 0" ng-click="updateImageGenre(genre.text)"><i class="icon icon-left" ng-class="genre.icon"></i>{{genre.text}}</a>
                     </div>
                 </div>
                 <div class="row">
                     <div class="button-bar">
-                        <a class="button button-assertive" ng-repeat="genre in genreList.genres" ng-if="$index % 2 != 0"><i class="icon icon-left" ng-class="genre.icon"></i>{{genre.text}}</a>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <div class="button button-block button-assertive" ng-click="stage = 'captions'">
-                            Next
-                        </div>
+                        <a class="button button-assertive" ng-repeat="genre in genreList.genres" ng-if="$index % 2 != 0" ng-click="updateImageGenre(genre.text)"><i class="icon icon-left" ng-class="genre.icon"></i>{{genre.text}}</a>
                     </div>
                 </div>
             </div>
             <div ng-show="stage === 'captions'">
                 <div class="row">
                     <div class="col">
-                        <div class="button button-block button-assertive">
+                        <div class="button button-block button-assertive" ng-click="newImage(currentImage.url)">
                             More images!
                         </div>
                     </div>
