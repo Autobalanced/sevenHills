@@ -13,7 +13,7 @@
             </div>
             <div ng-show="stage === 'rating'">
                 <div class="row">
-                    <div class="col">
+                    <div class="col" ng-class="scoreClass[tempScore-1]">
                         <div class="card">
                             <div class="item item-text-wrap">How much does this image represent Ben?</div>
                         </div>

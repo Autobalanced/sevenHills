@@ -110,6 +110,8 @@ angular.module('sevenHills.controllers', [])
     $scope.tempScore = 1;
     $scope.tempGenre = '';
 
+    $scope.scoreClass = ["score-ben", "score-ja", "score-min", "score-hill", "score-man"];
+
     /* An array of images already viewed this session so user only sees new images, 
     should be stored in Firebase under user accounts later to persist or use local storage*/
     $scope.viewedImages = [];
@@ -148,8 +150,11 @@ angular.module('sevenHills.controllers', [])
 
     // Send the users image score to the Service to be saved
     function updateImageScore(tempScore) {
-        ImageService.updateScore($scope.currentImage.$id, tempScore);
-        $scope.stage = "genre";
+        // Minor validations, should have user error feedback later
+        if (tempScore >= 1) {
+            ImageService.updateScore($scope.currentImage.$id, tempScore);
+            $scope.stage = "genre";
+        }
     }
 
     // Send the users chosen genre to the Service to be saved

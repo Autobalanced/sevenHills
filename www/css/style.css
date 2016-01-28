@@ -1,1 +1,115 @@
 /* Empty. Add your own CSS if you like */
+
+.score-ben::before {
+    position: absolute;
+    z-index: 1000;
+    content: "ben";
+    right: 3px;
+
+    font-family: 'Vollkorn', serif;
+    font-size: 19px;
+    line-height: 15px;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: red;
+    border: 5px solid red;
+    padding: 10px 7px;
+    border-radius: 10px;
+    opacity: 0.8;
+    -webkit-transform: rotate(-10deg);
+    -o-transform: rotate(-10deg);
+    -moz-transform: rotate(-10deg);
+    -ms-transform: rotate(-10deg);
+}
+
+.score-ja::before {
+    position: absolute;
+    z-index: 1000;
+    content: "ja";
+    margin-top: 5px;
+    right: 60px;
+
+    font-family: 'Vollkorn', serif;
+    font-size: 25px;
+    line-height: 15px;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: red;
+    border: 5px solid red;
+    padding: 10px 7px;
+    border-radius: 10px;
+    opacity: 0.8;
+    -webkit-transform: rotate(-10deg);
+    -o-transform: rotate(-10deg);
+    -moz-transform: rotate(-10deg);
+    -ms-transform: rotate(-10deg);
+}
+
+.score-min::before {
+    position: absolute;
+    z-index: 1000;
+    content: "min";
+    margin-top: 10px;
+    right: 30px;
+
+    font-family: 'Vollkorn', serif;
+    font-size: 30px;
+    line-height: 20px;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: red;
+    border: 6px solid red;
+    padding: 10px 7px;
+    border-radius: 10px;
+    opacity: 0.8;
+    -webkit-transform: rotate(-10deg);
+    -o-transform: rotate(-10deg);
+    -moz-transform: rotate(-10deg);
+    -ms-transform: rotate(-10deg);
+}
+
+.score-hill::before {
+    position: absolute;
+    z-index: 1000;
+    content: "hill";
+    margin-top: 15px;
+    margin-left: 100px;
+
+    font-family: 'Vollkorn', serif;
+    font-size: 39px;
+    line-height: 35px;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: red;
+    border: 7px solid red;
+    padding: 10px 7px;
+    border-radius: 10px;
+    opacity: 0.8;
+    -webkit-transform: rotate(-10deg);
+    -o-transform: rotate(-10deg);
+    -moz-transform: rotate(-10deg);
+    -ms-transform: rotate(-10deg);
+}
+
+.score-man::before {
+    position: absolute;
+    z-index: 1000;
+    content: "man";
+    margin-top: 15px;
+    margin-left: 30px;
+
+    font-family: 'Vollkorn', serif;
+    font-size: 100px;
+    line-height: 65px;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: red;
+    border: 10px solid red;
+    padding: 10px 7px;
+    border-radius: 10px;
+    opacity: 0.8;
+    -webkit-transform: rotate(-10deg);
+    -o-transform: rotate(-10deg);
+    -moz-transform: rotate(-10deg);
+    -ms-transform: rotate(-10deg);
+}
